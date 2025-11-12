@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Hotel JILF</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Estilos gerais do Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #000; /* Cor de fundo preta */
+      padding: 1px 30px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      color: #fff;
+      margin: 0;
+    }
+
+    /* Logo */
+    .logo {
+      width: 90px;
+      height: auto;
+    }
+
+    /* Menu de navegação */
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #444;
+    }
+
+    /* Botão de Sair */
+    .logout-btn {
+      background-color: red;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logout-btn:hover {
+      background-color: darkred;
+    }
+
+    /* Estilos para o Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #fff;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 22px;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .modal-header h2 {
+      font-size: 1.25rem;
+      color: #1f2937;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      color: #6b7280;
+    }
+
+    .modal-close:hover {
+      color: #1f2937;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .modal form label {
+      font-weight: 600;
+      color: #374151;
+      margin-top: 10px;
+      display: block;
+    }
+
+    .modal form input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      background: #fafafa;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: #42a5f5;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #1e88e5;
+    }
+
+    .btn-ghost {
+      background: #e5e7eb;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <!-- Logo do hotel -->
+      <img src="hotel_logo.png" alt="Hotel JILF Logo" class="logo" />
+
+      <!-- Navegação -->
+      <nav>
+        <a href="checkin.html">Check-in</a>
+        <a href="checkout.html">Check-out</a>
+        <a href="reserva.html">Reservas</a>
+        <a href="historico.html">Histórico</a>
+      </nav>
+
+      <!-- Botão de Logout -->
+      <a href="login.html" class="logout-btn">Sair</a>
+    </header>
+
+    <!-- Status de Quartos Disponíveis -->
+    <div class="status-bar" id="statusBar">
+      <span class="status-tag available" id="tagDisponivel">Disponível: 4</span>
+      <span class="status-tag occupied" id="tagOcupado">Ocupado: 0</span>
+      <span class="status-tag cleaning" id="tagLimpeza">Em Limpeza: 0</span>
+      <span class="status-tag blocked" id="tagBloqueado">Bloqueado: 0</span>
+    </div>
+
+    <!-- Seção de Quartos -->
+    <div class="rooms" id="roomsGrid">
+      <!-- Quarto Frente-Mar -->
+      <div class="room-card" data-room="Frente-Mar">
+        <div class="room-header">
+          <h3>Frente-Mar</h3>
+          <div class="status available"><span class="badge-mini">Disponível</span></div>
+        </div>
+        <div class="room-body">
+          <p>Apto frente para o mar, cama queen, ar, Wi-Fi.</p>
+          <button class="reserve-btn">Reservar</button>
+        </div>
+      </div>
+
+      <!-- Quarto Vista-Parcial-Mar -->
+      <div class="room-card" data-room="Vista-Parcial-Mar">
+        <div class="room-header">
+          <h3>Vista-Parcial-Mar</h3>
+          <div class="status available"><span class="badge-mini">Disponível</span></div>
+        </div>
+        <div class="room-body">
+          <p>Varanda lateral, casal, ar, Wi-Fi.</p>
+          <button class="reserve-btn">Reservar</button>
+        </div>
+      </div>
+
+      <!-- Quarto Vista-Jardim -->
+      <div class="room-card" data-room="Vista-Jardim">
+        <div class="room-header">
+          <h3>Vista-Jardim</h3>
+          <div class="status available"><span class="badge-mini">Disponível</span></div>
+        </div>
+        <div class="room-body">
+          <p>Vista jardim interno, casal/solteiro, ar.</p>
+          <button class="reserve-btn">Reservar</button>
+        </div>
+      </div>
+
+      <!-- Quarto Jardim -->
+      <div class="room-card" data-room="Jardim">
+        <div class="room-header">
+          <h3>Jardim</h3>
+          <div class="status available"><span class="badge-mini">Disponível</span></div>
+        </div>
+        <div class="room-body">
+          <p>Térreo, acessível, cama casal, Wi-Fi.</p>
+          <button class="reserve-btn">Reservar</button>
+        </div>
+      </div>
+    </div>
+
+  <!-- Modal para Inserir Dados de Reserva -->
+  <div id="reservationModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modalTitle">Nova reserva</h2>
+        <button class="modal-close" id="closeModal">&times;</button>
+      </div>
+      <form id="reservationForm">
+        <input type="hidden" id="quartoEscolhido" name="quartoEscolhido"/>
+
+        <label for="nomeReserva">Nome do Proprietário</label>
+        <input type="text" id="nomeReserva" name="nomeReserva" required />
+
+        <label for="cpfReserva">CPF</label>
+        <input type="text" id="cpfReserva" name="cpfReserva" required maxlength="14" placeholder="000.000.000-00" />
+
+        <div class="grid-2">
+          <div>
+            <label for="dataEntrada">Data de Entrada</label>
+            <input type="date" id="dataEntrada" name="dataEntrada" required />
+          </div>
+          <div>
+            <label for="dataSaida">Data de Saída</label>
+            <input type="date" id="dataSaida" name="dataSaida" required />
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div>
+            <label for="valorReserva">Valor (R$)</label>
+            <input type="number" id="valorReserva" name="valorReserva" min="0" step="0.01" required />
+          </div>
+          <div>
+            <label for="desconto">Desconto (R$)</label>
+            <input type="number" id="desconto" name="desconto" min="0" step="0.01" value="0" />
+          </div>
+          <div>
+            <label for="acrescimo">Acréscimo (R$)</label>
+            <input type="number" id="acrescimo" name="acrescimo" min="0" step="0.01" value="0" />
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelarReserva">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Confirmar Reserva</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,22 +1,20 @@
 window.onload = function() {
+  const historicoOptions = document.getElementById('historicoOptions');
   const historico = JSON.parse(localStorage.getItem('historico')) || [];
-  const historicoReservas = document.getElementById('historicoReservas');
 
-  // Limpar o conteúdo do histórico
-  historicoReservas.innerHTML = '';
+  // Limpar o histórico
+  historicoOptions.innerHTML = '';
 
-  // Exibir as reservas no histórico
-  historico.forEach(reserva => {
-    historicoReservas.innerHTML += `
-      <div>
-        <strong>${reserva.nome}</strong> - Quarto: ${reserva.quarto} - Data de Saída: ${reserva.dataSaida}
+  historico.forEach((reserva) => {
+    historicoOptions.innerHTML += `
+      <div class="historico-item">
+        <strong>${reserva.nome}</strong> - Quarto: ${reserva.quarto} - Data de Entrada: ${new Date(reserva.dataEntrada).toLocaleDateString()} - Data de Saída: ${new Date(reserva.dataSaida).toLocaleDateString()}
       </div>
     `;
   });
 };
 
-// Logout
+// Função de Voltar para a página de Reservas
 document.getElementById('voltarBtn').addEventListener('click', function() {
-  window.location.href = 'reserva.html';  // Redireciona para o login
+  window.location.href = 'dashboard.html';  // Redireciona para a página de reservas
 });
-

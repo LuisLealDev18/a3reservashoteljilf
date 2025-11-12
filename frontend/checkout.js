@@ -8,9 +8,11 @@ window.onload = function() {
 
   checkout.forEach((reserva, index) => {
     checkoutOptions.innerHTML += `
-      <div>
-        <strong>${reserva.nome}</strong> - Quarto: ${reserva.quarto} - Data de Saída: ${reserva.dataSaida}
-        <button onclick="realizarCheckout(${index})">Confirmar Check-out</button>
+      <div class="checkout-option">
+        <div>
+          <strong>${reserva.nome}</strong> - Quarto: ${reserva.quarto} - Data de Saída: ${reserva.dataSaida}
+        </div>
+        <button class="checkout-btn" onclick="realizarCheckout(${index})">Confirmar Check-out</button>
       </div>
     `;
   });
@@ -27,11 +29,10 @@ function realizarCheckout(index) {
 
   localStorage.setItem('checkout', JSON.stringify(checkout));  // Atualiza o checkout
 
-  window.location.href = 'reserva.html';  // Redireciona para a página de reservas
+  window.location.reload();  // Atualiza a página para refletir as mudanças
 }
 
-// Logout
+// Função de Voltar para a página de Reservas
 document.getElementById('voltarBtn').addEventListener('click', function() {
-  window.location.href = 'reserva.html';  // Redireciona para o login
+  window.location.href = 'dashboard.html';  // Redireciona para a página de dashboard
 });
-

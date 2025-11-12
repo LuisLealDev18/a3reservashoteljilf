@@ -11,9 +11,12 @@ window.onload = function() {
   reservas.forEach((reserva, index) => {
     if (!reserva.checkin) { // Só exibe reservas para check-in
       checkinOptions.innerHTML += `
-        <div>
-          <strong>${reserva.nome}</strong> - Quarto: ${reserva.quarto}
-          <button onclick="confirmarCheckin(${index})">Confirmar Check-in</button>
+        <div class="checkin-option">
+          <div>
+            <strong>${reserva.nome}</strong> - Quarto: ${reserva.quarto}
+            <p>Data de Entrada: ${new Date(reserva.dataEntrada).toLocaleDateString()}</p>
+          </div>
+          <button class="checkin-btn" onclick="confirmarCheckin(${index})">Confirmar Check-in</button>
         </div>
       `;
     }
@@ -25,7 +28,7 @@ function confirmarCheckin(index) {
   const reservas = JSON.parse(localStorage.getItem('reservas')) || [];
   const reserva = reservas[index];
 
-  // Marcar a reserva como check-in e movê-la para o histórico
+  // Marcar a reserva como check-in
   reserva.checkin = true;
 
   // Atualizando as reservas no localStorage
@@ -33,50 +36,14 @@ function confirmarCheckin(index) {
 
   // Mover a reserva para o checkout
   const checkout = JSON.parse(localStorage.getItem('checkout')) || [];
-  checkout.push(reserva);  // Adiciona a reserva ao checkout
-  localStorage.setItem('checkout', JSON.stringify(checkout));  // Atualiza o checkout
+  checkout.push(reserva);
+  localStorage.setItem('checkout', JSON.stringify(checkout));
 
-  // Atualizar as opções de check-in e check-out
-  carregarReservas();  // Atualiza a página
-
-  window.location.href = 'reserva.html';  // Redireciona para a página de reservas
-}
-
-// Função para carregar as reservas e exibir no calendário
-function carregarReservas() {
-  const reservas = JSON.parse(localStorage.getItem('reservas')) || [];
-  const checkinOptions = document.getElementById('checkinOptions');
-  const checkoutOptions = document.getElementById('checkoutOptions');
-
-  checkinOptions.innerHTML = ''; // Limpar as opções de check-in
-  checkoutOptions.innerHTML = ''; // Limpar as opções de check-out
-
-  // Exibir as reservas para Check-in
-  reservas.sort((a, b) => new Date(a.dataEntrada) - new Date(b.dataEntrada));
-
-  reservas.forEach((reserva, index) => {
-    if (!reserva.checkin) { // Só exibe reservas para check-in
-      checkinOptions.innerHTML += `
-        <div>
-          <strong>${reserva.nome}</strong> - Quarto: ${reserva.quarto}
-          <button onclick="confirmarCheckin(${index})">Confirmar Check-in</button>
-        </div>
-      `;
-    }
-  });
-
-  // Exibir as reservas para Check-out
-  const checkout = JSON.parse(localStorage.getItem('checkout')) || [];
-  checkout.forEach((reserva) => {
-    checkoutOptions.innerHTML += `
-      <div>
-        <strong>${reserva.nome}</strong> - Quarto: ${reserva.quarto} - Data de Saída: ${reserva.dataSaida}
-      </div>
-    `;
-  });
+  // Atualizar a página
+  window.location.reload();  // Atualiza a página para refletir as mudanças
 }
 
 // Função de Voltar para a página de Reservas
 document.getElementById('voltarBtn').addEventListener('click', function() {
-  window.location.href = 'reserva.html';  // Redireciona para a página de reservas
+  window.location.href = 'dashboard.html';  // Redireciona para a página de dashboard
 });
