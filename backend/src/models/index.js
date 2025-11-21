@@ -1,8 +1,8 @@
 const sequelize = require('../config/db');
-const Booking = require('./Booking');
+const User = require('./User');
 
 // Associações podem ir aqui, se houver
 module.exports = {
   sequelize,
-  Booking
+  User
 };
