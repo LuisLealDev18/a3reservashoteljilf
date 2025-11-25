@@ -1,17 +1,38 @@
 {
-  "name": "a3-sistema-de-reserva-hotel-jilf",
+  "name": "a3reservashoteljilf",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src --out-dir build",
+    "start": "node build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuisLealDev18/a3reservashoteljilf.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "bugs": {
+    "url": "https://github.com/LuisLealDev18/a3reservashoteljilf/issues"
+  },
+  "homepage": "https://github.com/LuisLealDev18/a3reservashoteljilf#readme",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "2.2.2",
+    "@types/node": "24.10.1",
+    "eslint": "8.57.1",
+    "prisma": "7.0.1",
+    "tsup": "8.5.1",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3"
+  },
   "dependencies": {
-    "express": "^5.1.0",
-    "mongoose": "^8.19.3",
-    "mysql2": "^3.15.3"
+    "@prisma/client": "7.0.1",
+    "dotenv": "17.2.3",
+    "fastify": "5.6.2",
+    "zod": "4.1.12"
   }
 }
