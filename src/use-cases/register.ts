@@ -1,6 +1,5 @@
 import { hash } from 'bcryptjs'
 import { prisma } from '../lib/prisma'
-import { PrismaStudentsRepository } from 'src/repositories/prisma-users-repository'
 
 interface RegisterUseCaseRequest {
   name: string
@@ -14,32 +13,10 @@ interface RegisterUseCaseRequest {
   status: boolean
 }
 
-export async function registerUseCase({
-  name,
-  username,
-  email,
-  cpf,
-  telephone,
-  address,
-  course,
-  password,
-  status,
-}: RegisterUseCaseRequest) {
-  const userWithSameEmail = await prisma.student.findUnique({
-    where: {
-      email,
-    },
-  })
+export class RegisterUseCase {
+  constructor(private studentsRepository: any) {}
 
-  if (userWithSameEmail) {
-    throw new Error('Email already exists')
-  }
-
-  const password_hash = await hash(password, 6)
-
-  const prismaStudentsRepository = new PrismaStudentsRepository()
-
-  await prismaStudentsRepository.create({
+  async execute({
     name,
     username,
     email,
@@ -47,7 +24,51 @@ export async function registerUseCase({
     telephone,
     address,
     course,
-    password_hash,
+    password,
     status,
-  })
+  }: RegisterUseCaseRequest) {
+    const userWithSameEmail = await prisma.student.findUnique({
+      where: {
+        email,
+      },
+    })
+
+    if (userWithSameEmail) {
+      throw new Error('Email already exists')
+    }
+
+    const userWithSameUsername = await prisma.student.findUnique({
+      where: {
+        username,
+      },
+    })
+
+    if (userWithSameUsername) {
+      throw new Error('Username already exists')
+    }
+
+    const userWithSameCpf = await prisma.student.findUnique({
+      where: {
+        cpf,
+      },
+    })
+
+    if (userWithSameCpf) {
+      throw new Error('CPF already exists')
+    }
+
+    const password_hash = await hash(password, 6)
+
+    await this.studentsRepository.create({
+      name,
+      username,
+      email,
+      cpf,
+      telephone,
+      address,
+      course,
+      password_hash,
+      status,
+    })
+  }
 }
