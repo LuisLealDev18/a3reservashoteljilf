@@ -12,15 +12,26 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     address: z.string(),
     course: z.string(),
     password: z.string().min(6),
+    username: z.string(),
     status: z.boolean(),
   })
 
-  const { name, email, cpf, telephone, address, course, password, status } =
-    registerBodySchema.parse(request.body)
+  const {
+    name,
+    username,
+    email,
+    cpf,
+    telephone,
+    address,
+    course,
+    password,
+    status,
+  } = registerBodySchema.parse(request.body)
 
   try {
     await registerUseCase({
       name,
+      username,
       email,
       cpf,
       telephone,

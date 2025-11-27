@@ -17,6 +17,7 @@ model Student {
   id            String  @id @default(uuid())
   name          String
   email         String  @unique
+  username      String  @unique
   cpf           String  @unique
   telephone     String
   address       String
@@ -63,10 +64,11 @@ model Admin {
 }
 
 model Employee {
-  id            String @id @default(uuid())
-  name          String
-  position      String
-  user          String @unique
+  id   String @id @default(uuid())
+  name String
+  code String
+  user String @unique
+
   password_hash String
 
   @@map("employees")

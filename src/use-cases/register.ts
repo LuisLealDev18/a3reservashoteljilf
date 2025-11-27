@@ -4,6 +4,7 @@ import { PrismaStudentsRepository } from 'src/repositories/prisma-users-reposito
 
 interface RegisterUseCaseRequest {
   name: string
+  username: string
   email: string
   cpf: string
   telephone: string
@@ -15,6 +16,7 @@ interface RegisterUseCaseRequest {
 
 export async function registerUseCase({
   name,
+  username,
   email,
   cpf,
   telephone,
@@ -39,6 +41,7 @@ export async function registerUseCase({
 
   await prismaStudentsRepository.create({
     name,
+    username,
     email,
     cpf,
     telephone,
