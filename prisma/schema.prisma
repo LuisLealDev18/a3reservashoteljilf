@@ -5,67 +5,68 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Student {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
-  cpf String @unique
-  telephone String
-  address String
-  course String
+  id            String  @id @default(uuid())
+  name          String
+  email         String  @unique
+  cpf           String  @unique
+  telephone     String
+  address       String
+  course        String
   password_hash String
-  status Boolean
+  status        Boolean
 
   created_at DateTime @default(now())
 
-  StudentSchoolSubjects StudentSchoolSubject[] 
+  StudentSchoolSubjects StudentSchoolSubject[]
+
   @@map("users")
 }
 
-model StudentSchoolSubject{
-  id String @id @default(uuid())
+model StudentSchoolSubject {
+  id           String @id @default(uuid())
   school_grade String
 
-  student Student @relation(fields: [student_id], references: [id])
+  student    Student @relation(fields: [student_id], references: [id])
   student_id String
 
-  school_subject SchoolSubject @relation(fields: [school_subject_id], references: [id])
+  school_subject    SchoolSubject @relation(fields: [school_subject_id], references: [id])
   school_subject_id String
 
   @@map("student_school_subject")
 }
 
-model SchoolSubject{
-  id String @id @default(uuid())
+model SchoolSubject {
+  id   String @id @default(uuid())
   name String
 
   StudentSchoolSubjects StudentSchoolSubject[]
+
   @@map("school_subjects")
 }
 
-
-model Admin{
-  id String @id @default(uuid())
-  user String
+model Admin {
+  id            String @id @default(uuid())
+  user          String
   password_hash String
-  name String
+  name          String
 
   @@map("admins")
 }
 
-model Employee{
-  id String @id @default(uuid())
-  name String
-  position String
-  user String @unique
+model Employee {
+  id            String @id @default(uuid())
+  name          String
+  position      String
+  user          String @unique
   password_hash String
 
   @@map("employees")
