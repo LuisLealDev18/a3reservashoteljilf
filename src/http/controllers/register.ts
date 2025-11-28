@@ -1,12 +1,11 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { RegisterUseCase } from 'src/use-cases/register'
-import { PrismaStudentsRepository } from 'src/repositories/prisma/prisma-students-repository'
 import {
   StudentCpfAlreadyExistsError,
   StudentEmailAlreadyExistsError,
   StudentUsernameAlreadyExistsError,
 } from 'src/use-cases/errors/student-already-exists-error'
+import { makeRegisterUseCase } from 'src/use-cases/factories/make-register-use-case'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
@@ -18,24 +17,13 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     course: z.string(),
     password: z.string().min(6),
     username: z.string(),
-    status: z.boolean(),
   })
 
-  const {
-    name,
-    username,
-    email,
-    cpf,
-    telephone,
-    address,
-    course,
-    password,
-    status,
-  } = registerBodySchema.parse(request.body)
+  const { name, username, email, cpf, telephone, address, course, password } =
+    registerBodySchema.parse(request.body)
 
   try {
-    const prismaStudentsRepository = new PrismaStudentsRepository()
-    const registerUseCase = new RegisterUseCase(prismaStudentsRepository)
+    const registerUseCase = makeRegisterUseCase()
 
     await registerUseCase.execute({
       name,
@@ -46,7 +34,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       address,
       course,
       password,
-      status,
+      status: true,
     })
   } catch (err) {
     if (err instanceof StudentEmailAlreadyExistsError) {

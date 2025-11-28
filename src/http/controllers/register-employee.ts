@@ -1,7 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { PrismaEmployeeRepository } from 'src/repositories/prisma/prisma-employees-repository'
 import { EmployeeUsernameAlreadyExistsError } from 'src/use-cases/errors/employee-already-exists-error'
-import { RegisterEmployeeUseCase } from 'src/use-cases/register-employee'
+import { makeRegisterEmployeeUseCase } from 'src/use-cases/factories/make-register-employee-use-case'
 import z from 'zod'
 
 export async function registerEmployee(
@@ -20,11 +19,7 @@ export async function registerEmployee(
   )
 
   try {
-    const prismaEmployeeRepository = new PrismaEmployeeRepository()
-    const registerEmployeeUseCase = new RegisterEmployeeUseCase(
-      prismaEmployeeRepository,
-    )
-
+    const registerEmployeeUseCase = makeRegisterEmployeeUseCase()
     await registerEmployeeUseCase.execute({
       name,
       username,

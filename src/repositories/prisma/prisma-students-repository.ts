@@ -1,8 +1,17 @@
 import { prisma } from 'src/lib/prisma'
-import { Prisma, Student } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import { StudentsRepository } from '../students-repository'
 
 export class PrismaStudentsRepository implements StudentsRepository {
+  async findById(id: string) {
+    const student = await prisma.student.findUnique({
+      where: {
+        id,
+      },
+    })
+    return student
+  }
+
   async findByCpf(cpf: string) {
     const student = await prisma.student.findUnique({
       where: {
