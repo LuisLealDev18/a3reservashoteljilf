@@ -1,0 +1,17 @@
+# Define o nome do site
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Define a base path para o seu site
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# Configura o build command e o diretório de build para o seu site
+[build]
+  command = "yarn build"
+  publish = "dist"

@@ -1,0 +1,114 @@
+.modal {
+  width: 90% !important;
+}
+
+.modal label {
+  font-size: 12px !important;
+}
+
+.containerModal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  padding: 40px;
+  background-color: white;
+  border-radius: 10px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.modal label {
+  display: flex;
+
+  font-size: 14px;
+  width: 100%;
+}
+
+.modal input {
+  width: 100%;
+  outline: none;
+  padding: 5px 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.modal button {
+  width: 100%;
+  margin: 10px auto;
+  outline: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  width: 100%;
+  border: none;
+  background-color: rgb(57, 57, 226);
+  color: white;
+}
+
+.active {
+  display: flex;
+}
+
+.active .modal {
+  animation: modal 0.4s;
+}
+
+@keyframes modal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -60px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.containerQuantity {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.containerCheck {
+  display: flex;
+align-items: flex-start;
+
+}
+
+.containerCheck label {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5px;
+}
+
+.containerCheck input {
+  display: flex;
+  margin-left: 10px;
+}
+.containerCheck input:first-child {
+  display: flex;
+  margin-left: 0;
+  
+}
+
+.containerLoad {
+  display: flex;
+  justify-content: center;
+  
+}

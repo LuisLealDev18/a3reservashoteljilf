@@ -1,0 +1,31 @@
+.header {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto 12px;
+}
+
+.logo {
+  margin-right: 75px;
+  width: 35px;
+}
+
+
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titleAndLastUpdate{
+  display: flex;
+  align-items: center;
+}
+
+.titleAndLastUpdate p{
+  margin: initial;
+  margin-left: 20px;
+  font-weight: bold;
+}
