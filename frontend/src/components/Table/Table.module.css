@@ -1,0 +1,97 @@
+.notes{
+    display: block;
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.buttonAction{
+    padding: 6px 10px;
+}
+
+
+.deleteNoteButton{
+    padding: 5px 10px;
+    background-color: orangered;
+    color: #FFFFFF;
+
+    border: none;
+    border-radius: 5px;
+}
+
+.containerTable{
+    margin-bottom: 100px;
+}
+
+
+/* Alterando a pagina de ADMIN */
+.containerAdminFilter{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.contentAdminFilter{
+    display: flex;
+    align-items: center;
+}
+
+.containerPeriod{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.containerDatePeriod{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+.containerDatePeriod label{
+    width: 30px;
+}
+
+.containerFilterType, .containerSchedule{
+    margin-left: 32px;
+}
+
+.containerButtons{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 42px;
+}
+
+.containerLeftFilter{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.containerButtons span button{
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    background: teal;
+    color: #FFFFFF;
+}
+
+.containerFiltersSum{
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 15px;
+    padding: 6px 20px;
+    display: flex;
+}
+  
+.containerFiltersSum p{
+    margin: 0 10px;
+}
+
+.containerFiltersSum p span{
+    font-weight: bold;
+}

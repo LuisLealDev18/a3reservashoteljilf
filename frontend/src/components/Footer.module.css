@@ -1,0 +1,20 @@
+.footer{
+    bottom: 0px;
+    width: 100%;
+    position: fixed;
+    padding: 30px 0;
+    left: 0;
+    text-align: center;
+    background: #F3F3F3;
+
+}
+
+.footer span{
+    font-weight: bold;
+    color: #052945;
+}
+
+.footer span a{
+    text-decoration: none;
+    color: #F9D113;
+}
